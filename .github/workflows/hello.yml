@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name: release
 on:
   push:
@@ -24,3 +25,17 @@ jobs:
           ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
           echo "${{ secrets.ACTIONS_DEPLOY_KYE }}" > ~/.ssh/id_rsa
           chmod 400 ~/.ssh/id_rsa
+=======
+name: Access files
+on: 
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Check the contents of the file
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: cat sample.txt
+>>>>>>> c59b2df13f594209e6a8bad97e4c746d01cf4561
