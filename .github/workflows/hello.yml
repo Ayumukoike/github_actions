@@ -1,9 +1,26 @@
-name: Hello, world!
-on: push
+name: release
+on:
+  push:
+    branches: [master]
 
 jobs:
   build:
-    name: Greeting
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
+
     steps:
-      - run: echo "Hello, world" 
+      - name: Check the contents of the file
+        uses: actions/setup-node@v1
+        with:
+        ref: "master"
+
+      - name: Configration on Ubuntu 18.04
+        uses: actions/setup-node@v1
+        with:
+          node-version: "10.x"
+
+      - name: Deploy configration
+        run: |
+          mkdir ~/.ssh
+          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+          echo "${{ secrets.ACTIONS_DEPLOY_KYE }}" > ~/.ssh/id_rsa
+          chmod 400 ~/.ssh/id_rsa
